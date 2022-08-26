@@ -4,14 +4,14 @@
 // estas constantes formarão o vetor que enumera os movimentos que foram feitos
 // **note que cada movimento tem seu inverso
 
-#define kCimaDireita 'a'
-#define kDireitaCima 'b'
-#define kDireitaBaixo 'c'
-#define kBaixoDireita 'd' 
-#define kBaixoEsquerda 'e'
-#define kEsquerdaBaixo 'f'
-#define kEsquerdaCima 'g'
-#define kCimaEsquerda 'h'
+#define kCimaDireita 1
+#define kDireitaCima 2
+#define kDireitaBaixo 3
+#define kBaixoDireita 4
+#define kBaixoEsquerda 5
+#define kEsquerdaBaixo 6
+#define kEsquerdaCima 7
+#define kCimaEsquerda 8
 
 
 /*
@@ -40,6 +40,8 @@ Brainstorm:
     nas bifurcacoes, dividir as possibilidades e dar o backtrack so se elas se
     esgotarem
 
+    anotar as possibilidades de cada passo. matriz
+
 */
 
 
@@ -47,11 +49,13 @@ int main(){
 
     int tabuleiro[8][8] = {0}; // inicializa o tabuleiro e preenche todas as casas com 0
 
-    char* historico = malloc(10000 * sizeof(char)); // o historico guardara os
-                                                    // caracteres que definem
-                                                    // as constantes, na sequencia
-                                                    // em que os respectivos
-                                                    // movimentos forem realizados
+    char** historico = malloc(10000 * sizeof(char)); // o historico guardara os
+                                                     // caracteres que definem
+                                                     // as constantes, na sequencia
+                                                     // em que os respectivos
+                                                     // movimentos forem realizados
+
+// TODO corrigir o comentario acima
 
     int passoAtual = 1;
 
@@ -67,3 +71,13 @@ int main(){
 
     free(historico);
 }
+
+/*
+
+TODO
+
+arrumar um jeito de desmarcar as possibilidades usadas a depender do backtrack,
+alguma especie de análise geral do tabuliro. salvar imagem do momento do
+backtrack e liberar as possibilidades se o estado estiver diferente?
+
+*/

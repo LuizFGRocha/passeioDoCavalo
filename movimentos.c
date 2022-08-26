@@ -6,6 +6,8 @@ as funcoes retornam 1 se o movimento for realizado com sucesso e 0 se o
 movimento nao for possivel, seja porque a casa esta fora do tabuleiro, seja
 porque a casa ja foi utilizada anteriormente
 
+as funcoes, na ordem em que estao dispostas, serao referidas de 1 a 8
+
 */
 
 int cimaDireita(int tabuleiro[][8], int m, int n){
