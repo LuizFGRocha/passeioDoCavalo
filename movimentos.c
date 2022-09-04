@@ -10,120 +10,120 @@ as funcoes, na ordem em que estao dispostas, serao referidas de 1 a 8
 
 */
 
-int cimaDireita(int tabuleiro[][8], int m, int n){ // movimento 1
+int cimaDireita(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 1
 
-    if (tabuleiro[m][n] != 0)
+    if (tabuleiro[*m][*n] != 0)
         return 0;
 
-    if (n - 2 < 0)
+    if (*n - 2 < 0)
         return 0;
 
-    if (m + 1 > 7)
+    if (*m + 1 > 7)
         return 0;
 
     return 1;   
 
 }
 
-int direitaCima(int tabuleiro[][8], int m, int n){ // movimento 2
+int direitaCima(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 2
 
-    if (tabuleiro[m][n] != 0)
+    if (tabuleiro[*m][*n] != 0)
         return 0;
 
-    if (n - 1 < 0)
+    if (*n - 1 < 0)
         return 0;
 
-    if (m + 2 > 7)
-        return 0;
-
-    return 1;   
-    
-}
-
-int direitaBaixo(int tabuleiro[][8], int m, int n){ // movimento 3
-
-    if (tabuleiro[m][n] != 0)
-        return 0;
-
-    if (n + 1 > 7)
-        return 0;
-
-    if (m + 2 > 7)
+    if (*m + 2 > 7)
         return 0;
 
     return 1;   
     
 }
 
-int baixoDireita(int tabuleiro[][8], int m, int n){ // movimento 4
+int direitaBaixo(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 3
 
-    if (tabuleiro[m][n] != 0)
+    if (tabuleiro[*m][*n] != 0)
         return 0;
 
-    if (n + 2 > 7)
+    if (*n + 1 > 7)
         return 0;
 
-    if (m + 1 > 7)
-        return 0;
-
-    return 1;   
-    
-}
-
-int baixoEsquerda(int tabuleiro[][8], int m, int n){ // movimento 5
-
-    if (tabuleiro[m][n] != 0)
-        return 0;
-
-    if (n + 2 > 7)
-        return 0;
-
-    if (m - 1 < 7)
+    if (*m + 2 > 7)
         return 0;
 
     return 1;   
     
 }
 
-int esquerdaBaixo(int tabuleiro[][8], int m, int n){ // movimento 6
+int baixoDireita(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 4
 
-    if (tabuleiro[m][n] != 0)
+    if (tabuleiro[*m][*n] != 0)
         return 0;
 
-    if (n + 1 > 7)
+    if (*n + 2 > 7)
         return 0;
 
-    if (m - 2 < 0)
-        return 0;
-
-    return 1;   
-    
-}
-
-int esquerdaCima(int tabuleiro[][8], int m, int n){ // movimento 7
-
-    if (tabuleiro[m][n] != 0)
-        return 0;
-
-    if (n - 1 < 0)
-        return 0;
-
-    if (m - 2 < 0)
+    if (*m + 1 > 7)
         return 0;
 
     return 1;   
     
 }
 
-int cimaEsquerda(int tabuleiro[][8], int m, int n){ // movimento 8
+int baixoEsquerda(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 5
 
-    if (tabuleiro[m][n] != 0)
+    if (tabuleiro[*m][*n] != 0)
         return 0;
 
-    if (n - 2 < 0)
+    if (*n + 2 > 7)
         return 0;
 
-    if (m - 1 < 0)
+    if (*m - 1 < 7)
+        return 0;
+
+    return 1;   
+    
+}
+
+int esquerdaBaixo(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 6
+
+    if (tabuleiro[*m][*n] != 0)
+        return 0;
+
+    if (*n + 1 > 7)
+        return 0;
+
+    if (*m - 2 < 0)
+        return 0;
+
+    return 1;   
+    
+}
+
+int esquerdaCima(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 7
+
+    if (tabuleiro[*m][*n] != 0)
+        return 0;
+
+    if (*n - 1 < 0)
+        return 0;
+
+    if (*m - 2 < 0)
+        return 0;
+
+    return 1;   
+    
+}
+
+int cimaEsquerda(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 8
+
+    if (tabuleiro[*m][*n] != 0)
+        return 0;
+
+    if (*n - 2 < 0)
+        return 0;
+
+    if (*m - 1 < 0)
         return 0;
 
     return 1;   

@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-// estas constantes formarão o vetor que enumera os movimentos que foram feitos
-// **note que cada movimento tem seu inverso
+#include "movimentos.h"
 
 #define kCimaDireita 1
 #define kDireitaCima 2
@@ -13,71 +11,83 @@
 #define kEsquerdaCima 7
 #define kCimaEsquerda 8
 
-
-/*
-
-Esboco: 
-
-1) Inicializar um tabuleiro 8x8, preencher as casas com 0.
-
-2) Fazer funções que descrevem os possíveis movimentos do cavalo, incluindo
-   critérios para decidir sobre a sua validade.
-
-
-Detalhes: 
-
-    as coordenadas do tabuleiro estao dadas como em uma matriz, na ordem [linha][coluna].
-
-
-Brainstorm:
-
-    se o movimento tiver sucesso, ele retorna 1. isso deve ser suficiente para
-    saber a nova posicao e aumentar a quantidade de casas em que o cavalo andou
-
-    vetores feitos com alocação dinamica. dobrar memoria conforme necessario,
-    comecar com 10000
-
-    nas bifurcacoes, dividir as possibilidades e dar o backtrack so se elas se
-    esgotarem
-
-    anotar as possibilidades de cada passo. matriz
-
-*/
-
+typedef struct{
+    short int linha, coluna;
+} coordenadas;
 
 int main(){
 
-    int tabuleiro[8][8] = {0}; // inicializa o tabuleiro e preenche todas as casas com 0
+    /* declaracao do tabuleiro e inicializacao da variavel que guarda a 
+       posicao atual e do vetor que guarda qual o maior movimento tentado    */
+    int tabuleiro[8][8], nMovs = 0;
+    coordenadas pAtual = {1, 1};
+    short int* hist = malloc(500 * sizeof(short int));
 
-    char** historico = malloc(10000 * sizeof(char)); // o historico guardara os
-                                                     // caracteres que definem
-                                                     // as constantes, na sequencia
-                                                     // em que os respectivos
-                                                     // movimentos forem realizados
+    while(1){
+        if(cimaDireita(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+            pAtual.linha -= 2;
+            pAtual.coluna += 1;
+            hist[nMovs++] = kCimaDireita;
+        }
 
-// TODO corrigir o comentario acima
+        if(direitaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+            pAtual.linha -= 1;
+            pAtual.coluna += 2;
+            hist[nMovs++] = kDireitaCima;
+        }
 
-    int passoAtual = 1;
+        if(direitaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+            pAtual.linha += 1;
+            pAtual.coluna += 2;
+            hist[nMovs++] = kDireitaBaixo;
+        }
 
-    int resultado = fazerPasseio(tabuleiro, historico, passoAtual);
+        if(baixoDireita(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+            pAtual.linha += 2;
+            pAtual.coluna += 1;
+            hist[nMovs++] = kBaixoDireita;
+        }
 
+        if(baixoEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+            pAtual.linha += 2;
+            pAtual.coluna -= 1;
+            hist[nMovs++] = kBaixoEsquerda;
+        }
 
+        if(esquerdaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+            pAtual.linha += 1;
+            pAtual.coluna -= 2;
+            hist[nMovs++] = kEsquerdaBaixo;
+        }
 
+        if(esquerdaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+            pAtual.linha -= 1;
+            pAtual.coluna -= 2;
+            hist[nMovs++] = kEsquerdaCima;
+        }
 
-    int passoAtual = 1; // essa variavel guarda o passo atual na casa mais recente
-                        // ela deve aumentar ou diminuir no decorrer da execucao
-                        // do programa, na medida que o cavalo anda para frente
-                        // e para trás, respectivamente
+        else if(cimaEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+            pAtual.linha -= 2;
+            pAtual.coluna -= 1;
+            hist[nMovs++] = kCimaEsquerda;
+        }
 
-    free(historico);
+        else{
+            printf("Fim da linha\n");
+            break;
+
+            /* trabalhar nessa parte
+               implementar uma mecanica para retornar sem repetir              */
+        }
+    }
+
+    int i;
+    for(i = 0; i < nMovs; ++i){
+        printf("%d\n", hist[i]);
+    }
+
+    free(hist);
 }
 
-/*
-
-TODO
-
-arrumar um jeito de desmarcar as possibilidades usadas a depender do backtrack,
-alguma especie de análise geral do tabuliro. salvar imagem do momento do
-backtrack e liberar as possibilidades se o estado estiver diferente?
-
-*/
+    /* fazer uma matriz em que as colunas guardam a maior posicao tentada e
+       as linhas guardam uma sequencia de movimentos                         */
