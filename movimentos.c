@@ -1,5 +1,14 @@
 #include "movimentos.h"
 
+#define kCimaDireita 1
+#define kDireitaCima 2
+#define kDireitaBaixo 3
+#define kBaixoDireita 4
+#define kBaixoEsquerda 5
+#define kEsquerdaBaixo 6
+#define kEsquerdaCima 7
+#define kCimaEsquerda 8
+
 /*
 
 as funcoes retornam 1 se o movimento for realizado com sucesso e 0 se o
@@ -10,7 +19,7 @@ as funcoes, na ordem em que estao dispostas, serao referidas de 1 a 8
 
 */
 
-int cimaDireita(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 1
+int cimaDireita(int tabuleiro[][8], int* m, int* n, int* nMovs, short int* hist){ // movimento 1
 
     if (tabuleiro[*m][*n] != 0)
         return 0;
@@ -21,11 +30,14 @@ int cimaDireita(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 1
     if (*m + 1 > 7)
         return 0;
 
-    return 1;   
+    *m -= 2;
+    *n += 1;
+    hist[(*nMovs)++] = kCimaDireita; // aplicar essa parte no resto
 
+    return 1;
 }
 
-int direitaCima(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 2
+int direitaCima(int tabuleiro[][8], int* m, int* n, int* nMovs, short int* hist){ // movimento 2
 
     if (tabuleiro[*m][*n] != 0)
         return 0;
@@ -40,7 +52,7 @@ int direitaCima(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 2
     
 }
 
-int direitaBaixo(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 3
+int direitaBaixo(int tabuleiro[][8], int* m, int* n, int* nMovs, short int* hist){ // movimento 3
 
     if (tabuleiro[*m][*n] != 0)
         return 0;
@@ -55,7 +67,7 @@ int direitaBaixo(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 3
     
 }
 
-int baixoDireita(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 4
+int baixoDireita(int tabuleiro[][8], int* m, int* n, int* nMovs, short int* hist){ // movimento 4
 
     if (tabuleiro[*m][*n] != 0)
         return 0;
@@ -70,7 +82,7 @@ int baixoDireita(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 4
     
 }
 
-int baixoEsquerda(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 5
+int baixoEsquerda(int tabuleiro[][8], int* m, int* n, int* nMovs, short int* hist){ // movimento 5
 
     if (tabuleiro[*m][*n] != 0)
         return 0;
@@ -85,7 +97,7 @@ int baixoEsquerda(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 
     
 }
 
-int esquerdaBaixo(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 6
+int esquerdaBaixo(int tabuleiro[][8], int* m, int* n, int* nMovs, short int* hist){ // movimento 6
 
     if (tabuleiro[*m][*n] != 0)
         return 0;
@@ -100,7 +112,7 @@ int esquerdaBaixo(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 
     
 }
 
-int esquerdaCima(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 7
+int esquerdaCima(int tabuleiro[][8], int* m, int* n, int* nMovs, short int* hist){ // movimento 7
 
     if (tabuleiro[*m][*n] != 0)
         return 0;
@@ -115,7 +127,7 @@ int esquerdaCima(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 7
     
 }
 
-int cimaEsquerda(int tabuleiro[][8], int* m, int* n, int* nMovs){ // movimento 8
+int cimaEsquerda(int tabuleiro[][8], int* m, int* n, int* nMovs, short int* hist){ // movimento 8
 
     if (tabuleiro[*m][*n] != 0)
         return 0;

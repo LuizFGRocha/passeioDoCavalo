@@ -24,49 +24,49 @@ int main(){
     short int* hist = malloc(500 * sizeof(short int));
 
     while(1){
-        if(cimaDireita(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+        if(cimaDireita(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 2;
             pAtual.coluna += 1;
             hist[nMovs++] = kCimaDireita;
         }
 
-        if(direitaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+        if(direitaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 1;
             pAtual.coluna += 2;
             hist[nMovs++] = kDireitaCima;
         }
 
-        if(direitaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+        if(direitaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 1;
             pAtual.coluna += 2;
             hist[nMovs++] = kDireitaBaixo;
         }
 
-        if(baixoDireita(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+        if(baixoDireita(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 2;
             pAtual.coluna += 1;
             hist[nMovs++] = kBaixoDireita;
         }
 
-        if(baixoEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+        if(baixoEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 2;
             pAtual.coluna -= 1;
             hist[nMovs++] = kBaixoEsquerda;
         }
 
-        if(esquerdaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+        if(esquerdaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 1;
             pAtual.coluna -= 2;
             hist[nMovs++] = kEsquerdaBaixo;
         }
 
-        if(esquerdaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+        if(esquerdaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 1;
             pAtual.coluna -= 2;
             hist[nMovs++] = kEsquerdaCima;
         }
 
-        else if(cimaEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs)){
+        else if(cimaEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 2;
             pAtual.coluna -= 1;
             hist[nMovs++] = kCimaEsquerda;
