@@ -10,7 +10,7 @@ as funcoes, na ordem em que estao dispostas, serao referidas de 1 a 8
 
 */
 
-int cimaDireita(int tabuleiro[][8], int m, int n){
+int cimaDireita(int tabuleiro[][8], int m, int n){ // movimento 1
 
     if (tabuleiro[m][n] != 0)
         return 0;
@@ -25,7 +25,7 @@ int cimaDireita(int tabuleiro[][8], int m, int n){
 
 }
 
-int direitaCima(int tabuleiro[][8], int m, int n){
+int direitaCima(int tabuleiro[][8], int m, int n){ // movimento 2
 
     if (tabuleiro[m][n] != 0)
         return 0;
@@ -40,7 +40,7 @@ int direitaCima(int tabuleiro[][8], int m, int n){
     
 }
 
-int direitaBaixo(int tabuleiro[][8], int m, int n){
+int direitaBaixo(int tabuleiro[][8], int m, int n){ // movimento 3
 
     if (tabuleiro[m][n] != 0)
         return 0;
@@ -55,7 +55,7 @@ int direitaBaixo(int tabuleiro[][8], int m, int n){
     
 }
 
-int baixoDireita(int tabuleiro[][8], int m, int n){
+int baixoDireita(int tabuleiro[][8], int m, int n){ // movimento 4
 
     if (tabuleiro[m][n] != 0)
         return 0;
@@ -70,7 +70,7 @@ int baixoDireita(int tabuleiro[][8], int m, int n){
     
 }
 
-int baixoEsquerda(int tabuleiro[][8], int m, int n){
+int baixoEsquerda(int tabuleiro[][8], int m, int n){ // movimento 5
 
     if (tabuleiro[m][n] != 0)
         return 0;
@@ -85,7 +85,7 @@ int baixoEsquerda(int tabuleiro[][8], int m, int n){
     
 }
 
-int esquerdaBaixo(int tabuleiro[][8], int m, int n){
+int esquerdaBaixo(int tabuleiro[][8], int m, int n){ // movimento 6
 
     if (tabuleiro[m][n] != 0)
         return 0;
@@ -100,7 +100,7 @@ int esquerdaBaixo(int tabuleiro[][8], int m, int n){
     
 }
 
-int esquerdaCima(int tabuleiro[][8], int m, int n){
+int esquerdaCima(int tabuleiro[][8], int m, int n){ // movimento 7
 
     if (tabuleiro[m][n] != 0)
         return 0;
@@ -115,7 +115,7 @@ int esquerdaCima(int tabuleiro[][8], int m, int n){
     
 }
 
-int cimaEsquerda(int tabuleiro[][8], int m, int n){
+int cimaEsquerda(int tabuleiro[][8], int m, int n){ // movimento 8
 
     if (tabuleiro[m][n] != 0)
         return 0;
