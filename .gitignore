@@ -55,4 +55,6 @@ dkms.conf
 .vscode/
 
 # Extensionless files
+*
+!/**/
 !*.*
