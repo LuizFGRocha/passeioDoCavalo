@@ -24,6 +24,7 @@ int main(){
     /* declaracao do tabuleiro e inicializacao da variavel que guarda a 
        posicao atual e do vetor que guarda qual o maior movimento tentado    */
     short int tabuleiro[8][8] = {0};
+    tabuleiro[0][0] = 1;
     int nMovs = 0;
     coordenadas pAtual = {0, 0};
     short int* hist = malloc(500 * sizeof(short int));
@@ -34,56 +35,56 @@ int main(){
             pAtual.linha -= 2;
             pAtual.coluna += 1;
             hist[nMovs++] = kCimaDireita;
-            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs + 1;
         }
 
         else if(direitaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 1;
             pAtual.coluna += 2;
             hist[nMovs++] = kDireitaCima;
-            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs + 1;
         }
 
         else if(direitaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 1;
             pAtual.coluna += 2;
             hist[nMovs++] = kDireitaBaixo;
-            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs + 1;
         }
 
         else if(baixoDireita(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 2;
             pAtual.coluna += 1;
             hist[nMovs++] = kBaixoDireita;
-            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs + 1;
         }
 
         else if(baixoEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 2;
             pAtual.coluna -= 1;
             hist[nMovs++] = kBaixoEsquerda;
-            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs + 1;
         }
 
         else if(esquerdaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 1;
             pAtual.coluna -= 2;
             hist[nMovs++] = kEsquerdaBaixo;
-            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs + 1;
         }
 
         else if(esquerdaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 1;
             pAtual.coluna -= 2;
             hist[nMovs++] = kEsquerdaCima;
-            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs + 1;
         }
 
         else if(cimaEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 2;
             pAtual.coluna -= 1;
             hist[nMovs++] = kCimaEsquerda;
-            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs + 1;
         }
 
         else{
@@ -99,15 +100,18 @@ int main(){
         }
 
         
-
+/* 
         imprimeMatriz8x8(tabuleiro);
         puts("");
-
+ */
         if (nMovs == superLim) {
             hist = realloc(hist, 2 * superLim);
             superLim *= 2;
         }
     }
+
+    imprimeMatriz8x8(tabuleiro);
+    puts("");
 
     int i;
     for(i = 0; i < nMovs; ++i){
