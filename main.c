@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "movimentos.h"
+#include "comandos.h"
 
 #define kCimaDireita 1
 #define kDireitaCima 2
@@ -11,6 +12,9 @@
 #define kEsquerdaCima 7
 #define kCimaEsquerda 8
 
+/* essa identificacao e util pra pegar o movimento inverso, para fazer o
+   backtracking                                                              */
+
 typedef struct{
     short int linha, coluna;
 } coordenadas;
@@ -19,57 +23,67 @@ int main(){
 
     /* declaracao do tabuleiro e inicializacao da variavel que guarda a 
        posicao atual e do vetor que guarda qual o maior movimento tentado    */
-    int tabuleiro[8][8], nMovs = 0;
-    coordenadas pAtual = {1, 1};
+    short int tabuleiro[8][8] = {0};
+    int nMovs = 0;
+    coordenadas pAtual = {0, 0};
     short int* hist = malloc(500 * sizeof(short int));
+    int superLim = 500; 
 
     while(1){
         if(cimaDireita(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 2;
             pAtual.coluna += 1;
             hist[nMovs++] = kCimaDireita;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
         }
 
-        if(direitaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
+        else if(direitaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 1;
             pAtual.coluna += 2;
             hist[nMovs++] = kDireitaCima;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
         }
 
-        if(direitaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
+        else if(direitaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 1;
             pAtual.coluna += 2;
             hist[nMovs++] = kDireitaBaixo;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
         }
 
-        if(baixoDireita(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
+        else if(baixoDireita(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 2;
             pAtual.coluna += 1;
             hist[nMovs++] = kBaixoDireita;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
         }
 
-        if(baixoEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
+        else if(baixoEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 2;
             pAtual.coluna -= 1;
             hist[nMovs++] = kBaixoEsquerda;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
         }
 
-        if(esquerdaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
+        else if(esquerdaBaixo(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha += 1;
             pAtual.coluna -= 2;
             hist[nMovs++] = kEsquerdaBaixo;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
         }
 
-        if(esquerdaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
+        else if(esquerdaCima(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 1;
             pAtual.coluna -= 2;
             hist[nMovs++] = kEsquerdaCima;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
         }
 
         else if(cimaEsquerda(tabuleiro, &pAtual.linha, &pAtual.coluna, &nMovs, hist)){
             pAtual.linha -= 2;
             pAtual.coluna -= 1;
             hist[nMovs++] = kCimaEsquerda;
+            tabuleiro[pAtual.linha][pAtual.coluna] = nMovs;
         }
 
         else{
@@ -77,14 +91,29 @@ int main(){
             break;
 
             /* trabalhar nessa parte
-               implementar uma mecanica para retornar sem repetir              */
+               implementar uma mecanica para retornar sem repetir
+               trocar a ordem da prioridade?
+               sempre estou indo no primeiro de 1 a 8, talvez alguma das
+               prioridades necessariamente resolva?
+               ==> mas isso nao e backtracking, e exaustao                   */
+        }
+
+        
+
+        imprimeMatriz8x8(tabuleiro);
+        puts("");
+
+        if (nMovs == superLim) {
+            hist = realloc(hist, 2 * superLim);
+            superLim *= 2;
         }
     }
 
     int i;
     for(i = 0; i < nMovs; ++i){
-        printf("%d\n", hist[i]);
+        printf("%2d || ", hist[i]);
     }
+    puts("");
 
     free(hist);
 }
