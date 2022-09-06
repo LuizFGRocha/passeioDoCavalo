@@ -1,5 +1,11 @@
 #include "movimentos.h"
 
+/**
+ * @brief essas constantes definem os modos de movimento. existem para facilitar
+ * a escolha de um modo e a realizacao do movimento inverso a um anterior (para
+ * o backtracking)
+ */
+
 #define kCimaDireita 1
 #define kDireitaCima 2
 #define kDireitaBaixo 3
@@ -9,163 +15,293 @@
 #define kEsquerdaCima 7
 #define kCimaEsquerda 8
 
-/*
-
-as funcoes retornam 1 se o movimento for realizado com sucesso e 0 se o
-movimento nao for possivel, seja porque a casa esta fora do tabuleiro, seja
-porque a casa ja foi utilizada anteriormente
-
-as funcoes, na ordem em que estao dispostas, serao referidas de 1 a 8
-
-*/
-
-int cimaDireita(short int tabuleiro[][8], short int* m, short int* n, int* nMovs, short int* hist){ // movimento 1
-
-    if (tabuleiro[*m - 2][*n + 1] != 0)
-        return 0;
-
-    if (*m - 2 < 0)
-        return 0;
-
-    if (*n + 1 > 7)
-        return 0;
-/* 
-    *m -= 2;
-    *n += 1;
-    hist[(*nMovs)++] = kCimaDireita;
+/**
+ * @brief checa a possibilidade de um movimento
+ * 
+ * @param tabuleiro o tabuleiro para o qual a possibilidade sera checada
+ * @param linha a linha atual no tabuleiro
+ * @param coluna a coluna atual no tabuleiro
+ * @param modo o modo que sera checado
+ * @return 1 se o movimento e possivel, 0 se nao
  */
+
+int cMovimento(short int tabuleiro[][8], short int* linha, short int* coluna,
+               short int modo) {
+
+    switch(modo){
+        case kCimaDireita:
+            return cCimaDireita(tabuleiro, linha, coluna);
+        case kDireitaCima:
+            return cDireitaCima(tabuleiro, linha, coluna);
+        case kDireitaBaixo:
+            return cDireitaBaixo(tabuleiro, linha, coluna);
+        case kBaixoDireita:
+            return cBaixoDireita(tabuleiro, linha, coluna);
+        case kBaixoEsquerda:
+            return cBaixoEsquerda(tabuleiro, linha, coluna);
+        case kEsquerdaBaixo:
+            return cEsquerdaBaixo(tabuleiro, linha, coluna);
+        case kEsquerdaCima:
+            return cEsquerdaCima(tabuleiro, linha, coluna);
+        case kCimaEsquerda:
+            return cCimaEsquerda(tabuleiro, linha, coluna);
+    }
+}
+
+/**
+ * @brief serve para mover para frente (como no contrario de fazer o backtracking)
+ * 
+ * @param tabuleiro tabuleiro no qual o movimento sera feito
+ * @param linha linha atual no tabuleiro
+ * @param coluna coluna atual no tabuleiro
+ * @param modo o movimento a ser executado (ver explicacao na definicao das constantes)
+ * @param nMov posicao ordinal do movimento atual (nao confundir cm nMovTotal)
+ * @param nMovTotal numero de movimentos realizados, ignorando os retornos
+ * @param hist vetor que contem os movimentos realizados anteriormente
+ */
+
+void moveFrente(short int tabuleiro[][8], short int* linha, short int* coluna, int modo, int* nMov, long long int* nMovTotal, short int* hist) {
+
+    (*nMovTotal)++;
+
+    hist[(*nMov)++] = modo;
+
+    switch(modo){
+        case kCimaDireita:
+            mvCimaDireita(tabuleiro, linha, coluna);
+            break;
+        case kDireitaCima:
+            mvDireitaCima(tabuleiro, linha, coluna);
+            break;
+        case kDireitaBaixo:
+            mvDireitaBaixo(tabuleiro, linha, coluna);
+            break;
+        case kBaixoDireita:
+            mvBaixoDireita(tabuleiro, linha, coluna);
+            break;
+        case kBaixoEsquerda:
+            mvBaixoEsquerda(tabuleiro, linha, coluna);
+            break;
+        case kEsquerdaBaixo:
+            mvEsquerdaBaixo(tabuleiro, linha, coluna);
+            break;
+        case kEsquerdaCima:
+            mvEsquerdaCima(tabuleiro, linha, coluna);
+            break;
+        case kCimaEsquerda:
+            mvCimaEsquerda(tabuleiro, linha, coluna);
+            break;
+    }
+
+    tabuleiro[*linha][*coluna] = *nMov + 1;
+    return;
+}
+
+void moveTras(short int tabuleiro[][8], short int* linha, short int* coluna,
+              int* nMov, long long int* nMovTotal, long long int* nMovBackTotal, short int* hist) {
+    (*nMovBackTotal)++;
+
+    tabuleiro[*linha][*coluna] = 0;
+
+    switch(hist[*nMov - 1]) {
+        case kCimaDireita:
+            mvBaixoEsquerda(tabuleiro, linha, coluna);
+            break;
+        case kDireitaCima:
+            mvEsquerdaBaixo(tabuleiro, linha, coluna);
+            break;
+        case kDireitaBaixo:
+            mvEsquerdaCima(tabuleiro, linha, coluna);
+            break;
+        case kBaixoDireita:
+            mvCimaEsquerda(tabuleiro, linha, coluna);
+            break;
+        case kBaixoEsquerda:
+            mvCimaDireita(tabuleiro, linha, coluna);
+            break;
+        case kEsquerdaBaixo:
+            mvDireitaCima(tabuleiro, linha, coluna);
+            break;
+        case kEsquerdaCima:
+            mvDireitaBaixo(tabuleiro, linha, coluna);
+            break;
+        case kCimaEsquerda:
+            mvBaixoDireita(tabuleiro, linha, coluna);
+            break;
+    }
+
+    hist[*nMov] = 0;
+    (*nMov)--;
+    return;
+}
+
+
+/**
+ * @brief as proximas funcoes (iniciadas em c e seguidas por um movimento)
+ * checam se e possivel realizar o movimento indicado em seu nome
+ * 
+ * @param tabuleiro e o tabuleiro no qual o movimento vai ser feito
+ * @param linha a linha atual
+ * @param coluna a coluna atual
+ * @return 1 se o movimento for possivel, 0 se nao
+ */
+
+int cCimaDireita(short int tabuleiro[][8], short int* linha, short int* coluna) { 
+    // movimento 1
+
+    if (tabuleiro[*linha - 2][*coluna + 1] != 0)
+        return 0;
+
+    if (*linha - 2 < 0)
+        return 0;
+
+    if (*coluna + 1 > 7)
+        return 0;
+    
     return 1;
 }
 
-int direitaCima(short int tabuleiro[][8], short int* m, short int* n, int* nMovs, short int* hist){ // movimento 2
+int cDireitaCima(short int tabuleiro[][8], short int* linha, short int* coluna) { 
+    // movimento 2
 
-    if (tabuleiro[*m - 1][*n + 2] != 0)
+    if (tabuleiro[*linha - 1][*coluna + 2] != 0)
         return 0;
 
-    if (*m - 1 < 0)
+    if (*linha - 1 < 0)
         return 0;
 
-    if (*n + 2 > 7)
+    if (*coluna + 2 > 7)
         return 0;
-/* 
-    *m += 2;
-    *n -= 1;
-    hist[(*nMovs)++] = kDireitaCima;
- */
-    return 1;   
-    
+
+    return 1;    
 }
 
-int direitaBaixo(short int tabuleiro[][8], short int* m, short int* n, int* nMovs, short int* hist){ // movimento 3
+int cDireitaBaixo(short int tabuleiro[][8], short int* linha, short int* coluna) { 
+    // movimento 3
 
-    if (tabuleiro[*m + 1][*n + 2] != 0)
+    if (tabuleiro[*linha + 1][*coluna + 2] != 0)
         return 0;
 
-    if (*m + 1 > 7)
+    if (*linha + 1 > 7)
         return 0;
 
-    if (*n + 2 > 7)
+    if (*coluna + 2 > 7)
         return 0;
-/* 
-    *m += 1;
-    *n += 2;
-    hist[(*nMovs)++] = kDireitaBaixo;
- */
+
     return 1;   
-    
 }
 
-int baixoDireita(short int tabuleiro[][8], short int* m, short int* n, int* nMovs, short int* hist){ // movimento 4
+int cBaixoDireita(short int tabuleiro[][8], short int* linha, short int* coluna) { 
+    // movimento 4
 
-    if (tabuleiro[*m + 2][*n + 1] != 0)
+    if (tabuleiro[*linha + 2][*coluna + 1] != 0)
         return 0;
 
-    if (*m + 2 > 7)
+    if (*linha + 2 > 7)
         return 0;
 
-    if (*n + 1 > 7)
+    if (*coluna + 1 > 7)
         return 0;
-/* 
-    *m += 2;
-    *n += 1;
-    hist[(*nMovs)++] = kBaixoDireita;
- */
+
     return 1;   
-    
 }
 
-int baixoEsquerda(short int tabuleiro[][8], short int* m, short int* n, int* nMovs, short int* hist){ // movimento 5
+int cBaixoEsquerda(short int tabuleiro[][8], short int* linha, short int* coluna) { 
+    // movimento 5
 
-    if (tabuleiro[*m + 2][*n - 1] != 0)
+    if (tabuleiro[*linha + 2][*coluna - 1] != 0)
         return 0;
 
-    if (*m + 2 > 7)
+    if (*linha + 2 > 7)
         return 0;
 
-    if (*n - 1 < 0)
+    if (*coluna - 1 < 0)
         return 0;
-/* 
-    *m -= 2;
-    *n -= 1;
-    hist[(*nMovs)++] = kBaixoEsquerda;
- */
+
     return 1;   
-    
 }
 
-int esquerdaBaixo(short int tabuleiro[][8], short int* m, short int* n, int* nMovs, short int* hist){ // movimento 6
+int cEsquerdaBaixo(short int tabuleiro[][8], short int* linha, short int* coluna) { 
+    // movimento 6
 
-    if (tabuleiro[*m + 1][*n - 2] != 0)
+    if (tabuleiro[*linha + 1][*coluna - 2] != 0)
         return 0;
 
-    if (*m + 1 > 7)
+    if (*linha + 1 > 7)
         return 0;
 
-    if (*n - 2 < 0)
+    if (*coluna - 2 < 0)
         return 0;
-/* 
-    *m += 1;
-    *n -= 2;
-    hist[(*nMovs)++] = kEsquerdaBaixo;
- */
+
     return 1;   
-    
 }
 
-int esquerdaCima(short int tabuleiro[][8], short int* m, short int* n, int* nMovs, short int* hist){ // movimento 7
+int cEsquerdaCima(short int tabuleiro[][8], short int* linha, short int* coluna) { 
+    // movimento 7
 
-    if (tabuleiro[*m - 1][*n - 2] != 0)
+    if (tabuleiro[*linha - 1][*coluna - 2] != 0)
         return 0;
 
-    if (*m - 1 < 0)
+    if (*linha - 1 < 0)
         return 0;
 
-    if (*n - 2 < 0)
+    if (*coluna - 2 < 0)
         return 0;
-/* 
-    *m -= 1;
-    *n -= 2;
-    hist[(*nMovs)++] = kEsquerdaCima;
- */
-    return 1;   
-    
+
+    return 1; 
 }
 
-int cimaEsquerda(short int tabuleiro[][8], short int* m, short int* n, int* nMovs, short int* hist){ // movimento 8
+int cCimaEsquerda(short int tabuleiro[][8], short int* linha, short int* coluna) { 
+    // movimento 8
 
-    if (tabuleiro[*m - 2][*n - 1] != 0)
+    if (tabuleiro[*linha - 2][*coluna - 1] != 0)
         return 0;
 
-    if (*m - 2 < 0)
+    if (*linha - 2 < 0)
         return 0;
 
-    if (*n - 1 < 0)
+    if (*coluna - 1 < 0)
         return 0;
-/* 
-    *m -= 2;
-    *n -= 1;
-    hist[(*nMovs)++] = kCimaEsquerda;
- */
-    return 1;   
-    
+
+    return 1;
+}
+
+void mvCimaDireita(short int tabuleiro[][8], short int* linha, short int *coluna) {
+    *linha -= 2;
+    *coluna += 1;
+}
+
+void mvDireitaCima(short int tabuleiro [][8], short int* linha, short int *coluna) {
+    *linha -= 1;
+    *coluna += 2;
+}
+
+void mvDireitaBaixo(short int tabuleiro [][8], short int* linha, short int *coluna) {
+    *linha += 1;
+    *coluna += 2;
+}
+
+void mvBaixoDireita(short int tabuleiro [][8], short int* linha, short int *coluna) {
+    *linha += 2;
+    *coluna += 1;
+}
+
+void mvBaixoEsquerda(short int tabuleiro [][8], short int* linha, short int *coluna) {
+    *linha += 2;
+    *coluna -= 1;
+}
+
+void mvEsquerdaBaixo(short int tabuleiro [][8], short int* linha, short int *coluna) {
+    *linha += 1;
+    *coluna -= 2;
+}
+
+void mvEsquerdaCima(short int tabuleiro [][8], short int* linha, short int *coluna) {
+    *linha -= 1;
+    *coluna -= 2;
+}
+
+void mvCimaEsquerda(short int tabuleiro [][8], short int* linha, short int *coluna) {
+    *linha -= 2;
+    *coluna -= 1;
 }
