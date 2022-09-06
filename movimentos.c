@@ -100,6 +100,7 @@ void moveFrente(short int tabuleiro[][8], short int* linha, short int* coluna, i
 void moveTras(short int tabuleiro[][8], short int* linha, short int* coluna,
               int* nMov, long long int* nMovTotal, long long int* nMovBackTotal, short int* hist) {
     (*nMovBackTotal)++;
+    (*nMovTotal)++;
 
     tabuleiro[*linha][*coluna] = 0;
 
