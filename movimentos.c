@@ -26,9 +26,9 @@
  */
 
 int cMovimento(short int tabuleiro[][8], short int* linha, short int* coluna,
-               short int modo) {
+               short int prioridade[], int i) {
 
-    switch(modo){
+    switch(prioridade[i]){
         case kCimaDireita:
             return cCimaDireita(tabuleiro, linha, coluna);
         case kDireitaCima:
@@ -60,13 +60,15 @@ int cMovimento(short int tabuleiro[][8], short int* linha, short int* coluna,
  * @param hist vetor que contem os movimentos realizados anteriormente
  */
 
-void moveFrente(short int tabuleiro[][8], short int* linha, short int* coluna, int modo, int* nMov, long long int* nMovTotal, short int* hist) {
+void moveFrente(short int tabuleiro[][8], short int* linha, short int* coluna,
+                short int prioridade[], int i, int* nMov, long long int* nMovTotal,
+                short int* hist) {
 
     (*nMovTotal)++;
 
-    hist[(*nMov)++] = modo;
+    hist[(*nMov)++] = i;
 
-    switch(modo){
+    switch(prioridade[i]){
         case kCimaDireita:
             mvCimaDireita(tabuleiro, linha, coluna);
             break;
@@ -98,13 +100,15 @@ void moveFrente(short int tabuleiro[][8], short int* linha, short int* coluna, i
 }
 
 void moveTras(short int tabuleiro[][8], short int* linha, short int* coluna,
-              int* nMov, long long int* nMovTotal, long long int* nMovBackTotal, short int* hist) {
+              short int* prioridade, int* nMov, long long int* nMovTotal,
+              long long int* nMovBackTotal, short int* hist) {
+
     (*nMovBackTotal)++;
     (*nMovTotal)++;
 
     tabuleiro[*linha][*coluna] = 0;
 
-    switch(hist[*nMov - 1]) {
+    switch(prioridade[hist[*nMov - 1]]) {
         case kCimaDireita:
             mvBaixoEsquerda(tabuleiro, linha, coluna);
             break;
@@ -131,7 +135,7 @@ void moveTras(short int tabuleiro[][8], short int* linha, short int* coluna,
             break;
     }
 
-    hist[*nMov] = 0;
+    hist[*nMov] = -1;
     (*nMov)--;
     return;
 }

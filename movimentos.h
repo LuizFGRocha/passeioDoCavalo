@@ -1,8 +1,13 @@
-int cMovimento(short int tabuleiro[][8], short int* linha, short int* coluna, short int modo);
+int cMovimento(short int tabuleiro[][8], short int* linha, short int* coluna,
+               short int prioridade[], int i);
 
-void moveFrente(short int tabuleiro[][8], short int* linha, short int* coluna, int modo, int* nMov, long long int* nMovTotal, short int* hist);
+void moveFrente(short int tabuleiro[][8], short int* linha, short int* coluna,
+                short int prioridade[], int i, int* nMov, long long int* nMovTotal,
+                short int* hist);
 
-void moveTras(short int tabuleiro[][8], short int* linha, short int* coluna, int* nMov, long long int* nMovTotal, long long int* nMovBackTotal, short int* hist);
+void moveTras(short int tabuleiro[][8], short int* linha, short int* coluna,
+              short int* prioridade, int* nMov, long long int* nMovTotal,
+              long long int* nMovBackTotal, short int* hist);
 
 int cCimaDireita(short int tabuleiro[][8], short int* m, short int* n);
 
