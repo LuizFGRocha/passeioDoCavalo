@@ -53,7 +53,7 @@ void fazerPasseio(int linhaInicial, int colunaInicial){
      */
 
     int i, nMov = 0;
-    long long int nMovTotal = 0, nMovBackTotal = 0;
+    long long int nMovTotal = 1, nMovBackTotal = 0;
     
     /**
      * @brief inicializacao do vetor "hist". ele guardara o movimento realizado para cada
