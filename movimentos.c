@@ -152,7 +152,6 @@ void moveTras(short int tabuleiro[][8], short int* linha, short int* coluna,
  */
 
 int cCimaDireita(short int tabuleiro[][8], short int* linha, short int* coluna) { 
-    // movimento 1
 
     if (tabuleiro[*linha - 2][*coluna + 1] != 0)
         return 0;
@@ -167,7 +166,6 @@ int cCimaDireita(short int tabuleiro[][8], short int* linha, short int* coluna) 
 }
 
 int cDireitaCima(short int tabuleiro[][8], short int* linha, short int* coluna) { 
-    // movimento 2
 
     if (tabuleiro[*linha - 1][*coluna + 2] != 0)
         return 0;
@@ -182,7 +180,6 @@ int cDireitaCima(short int tabuleiro[][8], short int* linha, short int* coluna) 
 }
 
 int cDireitaBaixo(short int tabuleiro[][8], short int* linha, short int* coluna) { 
-    // movimento 3
 
     if (tabuleiro[*linha + 1][*coluna + 2] != 0)
         return 0;
@@ -197,7 +194,6 @@ int cDireitaBaixo(short int tabuleiro[][8], short int* linha, short int* coluna)
 }
 
 int cBaixoDireita(short int tabuleiro[][8], short int* linha, short int* coluna) { 
-    // movimento 4
 
     if (tabuleiro[*linha + 2][*coluna + 1] != 0)
         return 0;
@@ -212,7 +208,6 @@ int cBaixoDireita(short int tabuleiro[][8], short int* linha, short int* coluna)
 }
 
 int cBaixoEsquerda(short int tabuleiro[][8], short int* linha, short int* coluna) { 
-    // movimento 5
 
     if (tabuleiro[*linha + 2][*coluna - 1] != 0)
         return 0;
@@ -227,7 +222,6 @@ int cBaixoEsquerda(short int tabuleiro[][8], short int* linha, short int* coluna
 }
 
 int cEsquerdaBaixo(short int tabuleiro[][8], short int* linha, short int* coluna) { 
-    // movimento 6
 
     if (tabuleiro[*linha + 1][*coluna - 2] != 0)
         return 0;
@@ -242,7 +236,6 @@ int cEsquerdaBaixo(short int tabuleiro[][8], short int* linha, short int* coluna
 }
 
 int cEsquerdaCima(short int tabuleiro[][8], short int* linha, short int* coluna) { 
-    // movimento 7
 
     if (tabuleiro[*linha - 1][*coluna - 2] != 0)
         return 0;
@@ -257,7 +250,6 @@ int cEsquerdaCima(short int tabuleiro[][8], short int* linha, short int* coluna)
 }
 
 int cCimaEsquerda(short int tabuleiro[][8], short int* linha, short int* coluna) { 
-    // movimento 8
 
     if (tabuleiro[*linha - 2][*coluna - 1] != 0)
         return 0;

@@ -1,3 +1,6 @@
+#ifndef MOVIMENTOS_H
+#define MOVIMENTOS_H
+
 int cMovimento(short int tabuleiro[][8], short int* linha, short int* coluna,
                short int prioridade[], int i);
 
@@ -48,3 +51,5 @@ void mvEsquerdaBaixo(short int tabuleiro [][8], short int* linha, short int *col
 void mvEsquerdaCima(short int tabuleiro [][8], short int* linha, short int *coluna);
 
 void mvCimaEsquerda(short int tabuleiro [][8], short int* linha, short int *coluna);
+
+#endif  // MOVIMENTOS_H
