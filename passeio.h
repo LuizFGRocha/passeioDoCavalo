@@ -13,7 +13,7 @@ typedef struct {
     coordenadas posicao;
 } casa;
 
-#define kNaoMovimentado -1
+#define kNaoAnotado -1
 
 /**
  * @brief essas constantes definem os modos de movimento. existem para facilitar
@@ -63,7 +63,7 @@ short int tabuleiro[8][8] = {0};
 int headerI, headerJ, nPosAtual = 0;
 coordenadas pAtual;
 long long int nMovParcial = 1, nMovTotal = 1, nMovBackTotal = 0;
-short int hist[64];
+casa hist[64];
 
 void passeio(int linhaInicial, int colunaInicial){
 
@@ -76,48 +76,6 @@ void passeio(int linhaInicial, int colunaInicial){
     }
     nPosAtual = 0;
     nMovParcial = 1, nMovTotal = 1, nMovBackTotal = 0;
-
-    switch(ladoMaisProximo(linhaInicial, colunaInicial)) {
-        case kCima:
-            prioridade[0] = kCimaEsquerda;
-            prioridade[1] = kCimaDireita;
-            prioridade[2] = kEsquerdaCima;
-            prioridade[3] = kDireitaCima;
-            prioridade[4] = kEsquerdaBaixo;
-            prioridade[5] = kDireitaBaixo;
-            prioridade[6] = kBaixoEsquerda;
-            prioridade[7] = kBaixoDireita;
-            break;
-        case kDireita:
-            prioridade[0] = kDireitaCima;
-            prioridade[1] = kDireitaBaixo; 
-            prioridade[2] = kCimaDireita; 
-            prioridade[3] = kBaixoDireita;
-            prioridade[4] = kCimaEsquerda;
-            prioridade[5] = kBaixoEsquerda; 
-            prioridade[6] = kEsquerdaCima;  
-            prioridade[7] = kEsquerdaBaixo; 
-            break;
-        case kBaixo:
-            prioridade[0] = kBaixoDireita;
-            prioridade[1] = kBaixoEsquerda;
-            prioridade[2] = kDireitaBaixo; 
-            prioridade[3] = kEsquerdaBaixo; 
-            prioridade[4] = kDireitaCima;   
-            prioridade[5] = kEsquerdaCima;  
-            prioridade[6] = kCimaDireita; 
-            prioridade[7] = kCimaEsquerda;
-        case kEsquerda:
-            prioridade[0] = kEsquerdaBaixo; 
-            prioridade[1] = kEsquerdaCima;  
-            prioridade[2] = kBaixoEsquerda; 
-            prioridade[3] = kCimaEsquerda;
-            prioridade[4] = kBaixoDireita;
-            prioridade[5] = kCimaDireita; 
-            prioridade[6] = kDireitaBaixo;
-            prioridade[7] = kDireitaCima;   
-            break;
-    }
 
     /**
      * @brief inicializacao do tabuleiro com todos os valores em 0 e das variaveis
@@ -148,7 +106,7 @@ void passeio(int linhaInicial, int colunaInicial){
      */
 
     for (headerI = 0; headerI < 64; ++headerI) {
-        hist[headerI] = kNaoMovimentado;
+        hist[headerI] = {kNaoAnotado, kNaoAnotado, {0, 0}};
     }
 
     /**
@@ -164,7 +122,7 @@ void passeio(int linhaInicial, int colunaInicial){
          * atribui 0 ao "headerI", que corresponde a primeira posicao no vetor de prioridades.
          */
 
-        for (int modo = hist[nPosAtual] + 1; ; ++modo) {
+        for (int modo = hist[nPosAtual].maiorTentado + 1; ; ++modo) {
 
             /**
              * se o "headerI" for igual a 8, nao ha mais movimentos disponiveis. nesse caso, o
