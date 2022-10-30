@@ -35,7 +35,7 @@ typedef struct {
 #define kBaixo 3
 #define kEsquerda 4
 
-int cMovimento(int modo);
+int cMovimento(short int linha, short int coluna, int modo);
 
 void moveFrente(int modo);
 
