@@ -1,3 +1,4 @@
+/*
 #define kCimaDireita 1
 #define kDireitaCima 2
 #define kDireitaBaixo 3
@@ -17,14 +18,14 @@ typedef struct{
     coordenadas posicao;
 } casa;
 
-/*
+
 
 typedef struct {
     int movimento;
     coordenadas posicao;
 } proximaCasa;
 
-*/
+
 
 coordenadas proximo(coordenadas casaAtual, int modo) {
     switch(modo) {
@@ -162,10 +163,10 @@ int nMovsPossiveis(coordenadas casa) {
 
 // Guardar em um vetor as próximas em ordem de qualidade. Usar um contador para passar por elas em ordem. Esse vetor sempre terá 8 elementos.
 
-/*
+
     Primeira casa => Vetor de próximas, casa uma com uma direção. O vetor é formado pela ordenação das casas com base em quantas próximas elas
     têm, do menor para o maior.
-*/
+
 
 casa tabuleiro[8][8];
 
@@ -201,6 +202,4 @@ while(cont){
 
 tabuleiro[tabuleiro[0][0].proxima[i].posicao.linha][tabuleiro[0][0].proxima[i].posicao.coluna].valor = 2;
 
-
-
-
+*/

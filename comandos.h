@@ -1,6 +1,6 @@
 #ifndef COMANDOS_H
 #define COMANDOS_H
-#include "passeio.c"
+#include "passeio.h"
 
 void imprimeTabuleiro8x8(casa tabuleiro[][8]);
 
