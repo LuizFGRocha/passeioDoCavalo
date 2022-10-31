@@ -64,22 +64,22 @@ typedef struct{
 *                                   FUNÇÕES                                   *
 ******************************************************************************/
 
-// Verdadeiro se a coordenada está no tabuleiro e não foi utilizada, 
-// falso se ela não está ou se ela foi utilizada.
-int ehValido(coordenadas coordenadas);
-
 // Retorna a coordenada resultante da realização do movimento determinado pelo modo.
 // Os modos são inteiros variando de 1 a 8 e correspondem às constantes com nome sugestivo
 // declaradas no início deste arquivo. Há mais detalhes na declaração delas.
 coordenadas proximo(coordenadas casaAtual, int modo);
 
+// Verdadeiro se a coordenada está no tabuleiro e não foi utilizada, 
+// falso se ela não está ou se ela foi utilizada.
+int ehValido(coordenadas coordenadas);
+
+// Imprime o tabuleiro na saída padrão.
+void imprimeTabuleiro8x8(casa tabuleiro[][8]);
+
 // Determina o número de movimentos possíveis saindo de uma casa dada como entrada.
 // Checa se o movimento vai para dentro da tabuleiro e se o cavalo ainda não passou
 // pela casa. Casas não visitadas tem o valor 0.
 int nMovsPossiveis(coordenadas casa);
-
-// Imprime o tabuleiro na saída padrão.
-void imprimeTabuleiro8x8(casa tabuleiro[][8]);
 
 /******************************************************************************
 *                              VARIÁVEIS GLOBAIS                              *
