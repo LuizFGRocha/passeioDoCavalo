@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "passeio.h"
 
-#define N_TESTE 500000
+#define N_TESTE 50000
 
 void validar_movimento(int resul[3], int atual[2], int proximo[2]) {
 
@@ -220,6 +220,7 @@ int main() {
 
     // Aplicar os casos de teste
     for (int i = 0; i < N_TESTE; i++){
+        printf("Linha: %d\nColuna: %d\n", posicao_inicial_original[i][0], posicao_inicial_original[i][1]);
         passeio(posicao_inicial_original[i][0], posicao_inicial_original[i][1]);
     }
 
