@@ -56,3 +56,11 @@ dkms.conf
 
 # Extensionless files
 *
+!/**/
+!*.*
+
+# Text files
+*.txt
+
+# json files (settings and tasks)
+*.json
