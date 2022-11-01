@@ -75,7 +75,7 @@ coordenadas proximo(coordenadas casaAtual, int modo);
 
 // Verdadeiro se a coordenada está no tabuleiro e não foi utilizada, 
 // falso se ela não está ou se ela foi utilizada.
-int ehValido(coordenadas coordenadas);
+int ehValido(casa tabuleiro[][8], coordenadas coordenadas);
 
 // Imprime o tabuleiro na saída padrão.
 void imprimeTabuleiro8x8(casa tabuleiro[][8]);
@@ -83,7 +83,7 @@ void imprimeTabuleiro8x8(casa tabuleiro[][8]);
 // Determina o número de movimentos possíveis saindo de uma casa dada como entrada.
 // Checa se o movimento vai para dentro da tabuleiro e se o cavalo ainda não passou
 // pela casa. Casas não visitadas tem o valor 0.
-int nMovsPossiveis(coordenadas casa);
+int nMovsPossiveis(casa tabuleiro[][8], coordenadas casa);
 
 
 /******************************************************************************
@@ -153,7 +153,7 @@ void passeio(int linhaInicial, int colunaInicial) {
             // cavalo pode ir no próximo turno.
             for (int contI = 1; contI <= 8; ++contI) {
 
-                if (ehValido(proximo(pAtual, contI))) {
+                if (ehValido(tabuleiro, proximo(pAtual, contI))) {
                     
                     // As próximas linhas são densas, mas acontece o seguinte:
                     // A posição de valor "qtdProximasPossiveis" do vetor "proxima" da casa indicada por "pAtual" recebe
@@ -177,8 +177,8 @@ void passeio(int linhaInicial, int colunaInicial) {
 
                     // Se o número de movimentos possíveis de uma casa for maior que a de outra,
                     // suas posições são trocadas. A cada iteração, a maior é colocada no final.
-                    if (nMovsPossiveis(tabuleiro[pAtual.linha][pAtual.coluna].proxima[i]) > 
-                        nMovsPossiveis(tabuleiro[pAtual.linha][pAtual.coluna].proxima[i + 1])) {
+                    if (nMovsPossiveis(tabuleiro, tabuleiro[pAtual.linha][pAtual.coluna].proxima[i]) > 
+                        nMovsPossiveis(tabuleiro, tabuleiro[pAtual.linha][pAtual.coluna].proxima[i + 1])) {
                         hold = tabuleiro[pAtual.linha][pAtual.coluna].proxima[i];
                         tabuleiro[pAtual.linha][pAtual.coluna].proxima[i] = tabuleiro[pAtual.linha][pAtual.coluna].proxima[i + 1];
                         tabuleiro[pAtual.linha][pAtual.coluna].proxima[i + 1] = hold;
@@ -308,7 +308,7 @@ coordenadas proximo(coordenadas casaAtual, int modo) {
     }
 }
 
-int ehValido(coordenadas coordenadas) {
+int ehValido(casa tabuleiro[][8], coordenadas coordenadas) {
     return (coordenadas.linha >= 0 && coordenadas.linha <= 7 && coordenadas.coluna >= 0 && 
     coordenadas.coluna <= 7 && tabuleiro[coordenadas.linha][coordenadas.coluna].valor == 0);
 }
@@ -324,10 +324,10 @@ void imprimeTabuleiro8x8(casa tabuleiro[][8]){
     return;
 }
 
-int nMovsPossiveis(coordenadas casa) {
+int nMovsPossiveis(casa tabuleiro[][8], coordenadas casa) {
     int i, count = 0;
     for (i = 1; i <= 8; ++i) {
-        if (ehValido(proximo(casa, i))) count++;
+        if (ehValido(tabuleiro, proximo(casa, i))) count++;
     }
     return count;
 }
