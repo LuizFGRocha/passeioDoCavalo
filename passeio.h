@@ -321,6 +321,8 @@ void imprimeTabuleiro8x8(casa tabuleiro[][8]){
         }
         printf("%2d\n", tabuleiro[i][7].valor);
     }
+    printf("\n");
+    
     return;
 }
 
