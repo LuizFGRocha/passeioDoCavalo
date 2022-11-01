@@ -247,6 +247,11 @@ void passeio(int linhaInicial, int colunaInicial) {
             tabuleiro[pAtual.linha][pAtual.coluna].anterior.linha = linhaAtual;
             tabuleiro[pAtual.linha][pAtual.coluna].anterior.coluna = colunaAtual;
         }
+
+        // Descomente a próxima linha e rode o programa no debugger com um breakpoint nela
+        // para ver o caminho ser encontrado passo a passo. O programa imprimirá uma nova matriz
+        // toda vez que um movimento for feito, para frente ou para trás.
+        // imprimeTabuleiro8x8(tabuleiro);
     }
 
     // As próximas linhas servem para criar o arquivo "saida.txt" e gravar os resultados nele.
@@ -322,7 +327,7 @@ void imprimeTabuleiro8x8(casa tabuleiro[][8]){
         printf("%2d\n", tabuleiro[i][7].valor);
     }
     printf("\n");
-    
+
     return;
 }
 
