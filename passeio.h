@@ -2,6 +2,10 @@
 #define PASSEIO_H
 #include <stdio.h>
 
+/******************************************************************************
+*                                 CONSTANTES                                  *
+******************************************************************************/
+
 // Servem para abstrair os "modos" de movimento. Cada constante
 // será usada para uma direção.
 #define kCimaDireita 1 // Dois para cima e um para a direita
@@ -81,31 +85,6 @@ void imprimeTabuleiro8x8(casa tabuleiro[][8]);
 // pela casa. Casas não visitadas tem o valor 0.
 int nMovsPossiveis(coordenadas casa);
 
-/******************************************************************************
-*                              VARIÁVEIS GLOBAIS                              *
-******************************************************************************/
-
-// Um tabuleiro formado por casas. Mais detalhes na declaração.
-// É declarado no escopo global para simplificar as chamadas de função.
-casa tabuleiro[8][8];
-
-// Guarda as coordenadas da posição atual.
-// É declarado no escopo global para simplificar as chamadas de função.
-coordenadas pAtual;
-
-// Número de movimentos com sucesso até um dado momento.
-// É dado por: número de passos - número de backtrackings.
-// Quando esse número chega a 64, o programa para.
-// É declarado no escopo global para simplificar as chamadas de função.
-int nMovAtual;
-
-// Número de movimentos total.
-// É declarado no escopo global para simplificar as chamadas de função.
-int nMovTotal;
-
-// Número de backtrackings total.
-// É declarado no escopo global para simplificar as chamadas de função.
-int nBackTotal;
 
 /******************************************************************************
 *                                FUNÇÃO PASSEIO                               *
@@ -113,6 +92,23 @@ int nBackTotal;
 
 // Realiza o passeio.
 void passeio(int linhaInicial, int colunaInicial) {
+
+    // Um tabuleiro formado por casas. Mais detalhes na declaração.
+    casa tabuleiro[8][8];
+
+    // Guarda as coordenadas da posição atual.
+    coordenadas pAtual;
+
+    // Número de movimentos com sucesso até um dado momento.
+    // É dado por: número de passos - número de backtrackings.
+    // Quando esse número chega a 64, o programa para.
+    int nMovAtual;
+
+    // Número de movimentos total.
+    int nMovTotal;
+
+    // Número de backtrackings total.
+    int nBackTotal;
 
     // Inicializa as casas do tabuleiro.
     for (int i = 0; i < 8; ++i) {
