@@ -223,8 +223,8 @@ void passeio(int linhaInicial, int colunaInicial) {
             
         } else {
 
-            // Se não é necessário fazer o backtracking, é realizado o movimento, sendo o escolhido leva para a casa que tem o menor número 
-            // de próximas casas possíveis que ainda não foi tentado.
+            // Se não é necessário fazer o backtracking, é realizado um movimento para frente, sendo escolhido o que leva para 
+            // a casa que tem o menor número de próximas casas possíveis que ainda não foi tentado.
 
             // A notação é muito densa devido aos múltiplos acessos às estruturas de dados. É feito o seguinte:
             // São acessados o valor da linha e o valor da coluna da melhor casa no vetor "proxima" da casa atual.
