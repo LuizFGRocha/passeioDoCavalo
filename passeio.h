@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include "movimentos.h"
-#include "comandos.h"
 
 typedef struct {
     short int linha, coluna;
