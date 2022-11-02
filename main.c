@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "movimentos.h"
-#include "comandos.h"
 
 #define kCimaDireita 1
 #define kDireitaCima 2
@@ -12,19 +11,28 @@
 #define kEsquerdaCima 7
 #define kCimaEsquerda 8
 
-#define kLinhaInicial 1
+#define kLinhaInicial 8
 #define kColunaInicial 8
 
 typedef struct{
     short int linha, coluna;
 } coordenadas;
 
+void imprimeMatriz8x8(short int matriz[][8]) {
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            printf("%2d ", matriz[i][j]);
+        }
+        puts("");
+    }
+}
+
 int main(){
 
     short int tabuleiro[8][8] = {0};
     tabuleiro[kLinhaInicial - 1][kColunaInicial - 1] = 1;
     int nMov = 0, i;
-    long long int nMovTotal = 0, nMovBackTotal = 0;
+    long long int nMovTotal = 1, nMovBackTotal = 0;
     coordenadas pAtual = {kLinhaInicial - 1, kColunaInicial - 1};
     short int hist[64];
     for (i = 0; i < 64; ++i) {
