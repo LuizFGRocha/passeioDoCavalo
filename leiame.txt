@@ -6,14 +6,8 @@ Compilador utilizado durante o desenvolvimento: gcc (Ubuntu 9.4.0-1ubuntu1~20.04
 
 Sobre o arquivo passeio.h:
 
-    A função void passeio(int linhaInicial, int colunaInicial) encontra um passeio que parte da casa inicial fornecida e
-o imprime no arquivo "saida.txt", seguido da quntidade de passos e da quantidade de backtrackings.
-
-    A função utiliza a heurística da Regra de Warnsdorff.
-
     Para a maioria das casas, o caminho é encontrado na primeira tentativa, sem a necessidade da realização de backtrackings.
 A exceção é a casa na linha 6 e coluna 5, que realiza 46 backtrackings.
-
     O arquivo "passeio.h" possui comentários por toda a sua extensão, explicando o funcionamento do programa. Para verificar
 como o programa está funcionado, é possível, ao final do loop while da função passeio, descomentar uma linha que imprime
 a matriz a cada movimento. Recomendo rodar o programa em um debugger com um breakpoint nessa linha para que seja visualizada
