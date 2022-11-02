@@ -1,4 +1,5 @@
 #include "movimentos.h"
+#include <stdio.h>
 
 /**
  * @brief essas constantes definem os modos de movimento. existem para facilitar
@@ -24,6 +25,15 @@
  * @param modo o modo que sera checado
  * @return 1 se o movimento e possivel, 0 se nao
  */
+
+void imprimeMatriz8x8(short int matriz[][8]) {
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            printf("%2d ", matriz[i][j]);
+        }
+        puts("");
+    }
+}
 
 int cMovimento(short int tabuleiro[][8], short int* linha, short int* coluna,
                short int prioridade[], int i) {
@@ -104,7 +114,6 @@ void moveTras(short int tabuleiro[][8], short int* linha, short int* coluna,
               long long int* nMovBackTotal, short int* hist) {
 
     (*nMovBackTotal)++;
-    (*nMovTotal)++;
 
     tabuleiro[*linha][*coluna] = 0;
 
