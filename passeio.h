@@ -40,7 +40,7 @@ typedef struct{
 
     // Diz qual foi o maior movimento já tentado dentre os disponíveis,
     // que estão listados em ordem de qualidade no vetor "próxima". 
-    // Quando um backtracking é feto, esse valor é incrementado, de modo
+    // Quando um backtracking é feito, esse valor é incrementado, de modo
     // indicar que, na próxima tentativa de movimento, outro movimento
     // deve ser tentado.
     int maiorTentado; 
@@ -151,16 +151,16 @@ void passeio(int linhaInicial, int colunaInicial) {
             tabuleiro[pAtual.linha][pAtual.coluna].maiorTentado = 0;
             // Encontra o vetor de próximas casas para a posição atual. Ele se constitui das cordenadas para as quais o
             // cavalo pode ir no próximo turno.
-            for (int contI = 1; contI <= 8; ++contI) {
+            for (int i = 1; i <= 8; ++i) {
 
-                if (ehValido(tabuleiro, proximo(pAtual, contI))) {
+                if (ehValido(tabuleiro, proximo(pAtual, i))) {
                     
                     // As próximas linhas são densas, mas acontece o seguinte:
                     // A posição de valor "qtdProximasPossiveis" do vetor "proxima" da casa indicada por "pAtual" recebe
                     // as coordenadas encontradas dentro deste if, se elas forem um móvimento válido, caso em que a
                     // a condição é verdadeira.
                     tabuleiro[pAtual.linha][pAtual.coluna].proxima[tabuleiro[pAtual.linha][pAtual.coluna].qtdProximosPossiveis] = 
-                    proximo(tabuleiro[pAtual.linha][pAtual.coluna].posicao, contI); 
+                    proximo(tabuleiro[pAtual.linha][pAtual.coluna].posicao, i); 
 
                     tabuleiro[pAtual.linha][pAtual.coluna].qtdProximosPossiveis++;
                 }
@@ -220,6 +220,7 @@ void passeio(int linhaInicial, int colunaInicial) {
             // Diminui o número do movimento atual e aumenta o contador de backtracking.
             nMovAtual--;
             ++nBackTotal;
+            
         } else {
 
             // Se não é necessário fazer o backtracking, é realizado o movimento, sendo o escolhido leva para a casa que tem o menor número 
@@ -247,6 +248,11 @@ void passeio(int linhaInicial, int colunaInicial) {
             tabuleiro[pAtual.linha][pAtual.coluna].anterior.linha = linhaAtual;
             tabuleiro[pAtual.linha][pAtual.coluna].anterior.coluna = colunaAtual;
         }
+
+        // Descomente a próxima linha e rode o programa no debugger com um breakpoint nela
+        // para ver o caminho ser encontrado passo a passo. O programa imprimirá uma nova matriz
+        // toda vez que um movimento for feito, para frente ou para trás.
+        // imprimeTabuleiro8x8(tabuleiro);
     }
 
     // As próximas linhas servem para criar o arquivo "saida.txt" e gravar os resultados nele.
@@ -317,10 +323,12 @@ void imprimeTabuleiro8x8(casa tabuleiro[][8]){
     int i, j;
     for (i = 0; i < 8; ++i) {
         for (j = 0; j < 7; ++j) {
-            printf("%d ", tabuleiro[i][j].valor);
+            printf("%2d ", tabuleiro[i][j].valor);
         }
-        printf("%d\n", tabuleiro[i][7].valor);
+        printf("%2d\n", tabuleiro[i][7].valor);
     }
+    printf("\n");
+
     return;
 }
 
