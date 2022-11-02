@@ -9,7 +9,7 @@ Sobre o arquivo passeio.h:
     A função void passeio(int linhaInicial, int colunaInicial) encontra um passeio que parte da casa inicial fornecida e
 o imprime no arquivo "saida.txt", seguido da quntidade de passos e da quantidade de backtrackings.
 
-    A função utiliza a heurística do grau mínimo, também conhecida como regra de Warnsdorff.
+    A função utiliza a heurística da Regra de Warnsdorff.
 
     Para a maioria das casas, o caminho é encontrado na primeira tentativa, sem a necessidade da realização de backtrackings.
 A exceção é a casa na linha 6 e coluna 5, que realiza 46 backtrackings.
