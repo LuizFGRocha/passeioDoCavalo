@@ -20,14 +20,14 @@ typedef struct {
 #define kCimaEsquerda 8
 
 short int prioridade[] = {
-    kCimaEsquerda,
-    kCimaDireita, 
-    kEsquerdaCima,  
-    kDireitaCima, 
-    kEsquerdaBaixo, 
-    kDireitaBaixo, 
-    kBaixoEsquerda, 
     kBaixoDireita,
+    kBaixoEsquerda, 
+    kDireitaBaixo, 
+    kEsquerdaBaixo, 
+    kDireitaCima, 
+    kEsquerdaCima,  
+    kCimaDireita, 
+    kCimaEsquerda,
 };
 
 void fazerPasseio(int linhaInicial, int colunaInicial){
