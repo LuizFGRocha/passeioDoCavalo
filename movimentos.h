@@ -52,4 +52,6 @@ void mvEsquerdaCima(short int tabuleiro [][8], short int* linha, short int *colu
 
 void mvCimaEsquerda(short int tabuleiro [][8], short int* linha, short int *coluna);
 
+void imprimeMatriz8x8(short int matriz[][8])
+
 #endif  // MOVIMENTOS_H
