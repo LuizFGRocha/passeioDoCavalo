@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "movimentos.h"
 
 #define kCimaDireita 1
@@ -29,6 +30,7 @@ void imprimeMatriz8x8(short int matriz[][8]) {
 
 int main(){
 
+    clock_t comeco = clock();
     short int tabuleiro[8][8] = {0};
     tabuleiro[kLinhaInicial - 1][kColunaInicial - 1] = 1;
     int nMov = 0, i;
@@ -58,10 +60,12 @@ int main(){
         // puts("");
     }
 
+    clock_t final = clock();
     printf("Caminho encontrado!!\n\n");
     imprimeMatriz8x8(tabuleiro);
     printf("\nNumero de passos total: %lld\n", nMovTotal);
     printf("Numero de retornos: %lld\n\n", nMovBackTotal);
+    printf("%lf\n", (double) (final - comeco) / CLOCKS_PER_SEC);
 
     return 0;
 }
